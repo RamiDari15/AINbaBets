@@ -154,13 +154,29 @@ for epoch in range(epochs):
         optimizer.step()
         epoch_loss += loss.item()
 
-    print(f"Epoch {epoch+1}/{epochs}, Loss: {epoch_loss/len(train_loader)}")
+    model.eval()
+    with torch.no_grad():
+        test_predictions = model(X_test_tensor)
+        test_predictions = test_predictions.round()
+        accuracy = (test_predictions.numpy() == y_test_tensor.numpy()).mean()
+
+    print(f"Epoch {epoch+1}/{epochs}, Loss: {epoch_loss/len(train_loader):.4f}, Accuracy: {accuracy * 100:.2f}%")
+
+
+    if accuracy > best_accuracy:
+        best_accuracy = accuracy
+        best_model_state = model.state_dict() 
+        torch.save(best_model_state, 'best_assist_model.pt')  
+        print(f"New best model saved with accuracy: {best_accuracy * 100:.2f}%")
 
 
 
-model.eval()
+best_model = NBAAssistModel(input_size)
+best_model.load_state_dict(torch.load('best_assist_model.pt'))
+best_model.eval()
+
 with torch.no_grad():
-    test_predictions = model(X_test_tensor)
+    test_predictions = best_model(X_test_tensor)
     test_predictions = test_predictions.round()
     accuracy = (test_predictions.numpy() == y_test_tensor.numpy()).mean()
-    print(f"Test Accuracy: {accuracy * 100:.2f}%")
+    print(f"Test Accuracy of Best Model: {accuracy * 100:.2f}%")

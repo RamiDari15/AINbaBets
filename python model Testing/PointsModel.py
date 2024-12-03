@@ -1,5 +1,4 @@
 #changed everything to torch from manual
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -20,6 +19,7 @@ SELECT * FROM (
     -- 2022 Data
     SELECT 
         pgs.points AS actual_points,
+        pgs.minutes AS minutes,
         p.games_played,
         p.points AS avg_points,
         p.field_goals_made,
@@ -62,6 +62,7 @@ SELECT * FROM (
     -- 2023 Data
     SELECT 
         pgs.points AS actual_points,
+        pgs.minutes AS minutes,
         p.games_played,
         p.points AS avg_points,
         p.field_goals_made,
@@ -101,6 +102,7 @@ SELECT * FROM (
     JOIN TeamStats_2023 AS ts_own ON tu_player.team_id = ts_own.team_id
     JOIN TeamStats_2023 AS ts_opp ON tu_opponent.team_id = ts_opp.team_id
 ) AS combined_data;
+
 
 """
 
@@ -179,7 +181,7 @@ class NBAPointModel(nn.Module):
 input_size = X_train.shape[1]
 model = NBAPointModel(input_size)
 criterion = nn.BCELoss()  # Binary Cross-Entropy Loss
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
 epochs = 150
 batch_size = 64
@@ -192,7 +194,7 @@ y_test_tensor = torch.tensor(y_test, dtype=torch.float32).view(-1, 1)
 
 train_data = torch.utils.data.TensorDataset(X_train_tensor, y_train_tensor)
 train_loader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True)
-
+best_accuracy = 0
 
 for epoch in range(epochs):
     model.train()
@@ -205,13 +207,29 @@ for epoch in range(epochs):
         optimizer.step()
         epoch_loss += loss.item()
 
-    print(f"Epoch {epoch+1}/{epochs}, Loss: {epoch_loss/len(train_loader)}")
+    model.eval()
+    with torch.no_grad():
+        test_predictions = model(X_test_tensor)
+        test_predictions = test_predictions.round()
+        accuracy = (test_predictions.numpy() == y_test_tensor.numpy()).mean()
+
+    print(f"Epoch {epoch+1}/{epochs}, Loss: {epoch_loss/len(train_loader):.4f}, Accuracy: {accuracy * 100:.2f}%")
+
+
+    if accuracy > best_accuracy:
+        best_accuracy = accuracy
+        best_model_state = model.state_dict() 
+        torch.save(best_model_state, 'best_points_model1.pt')  
+        print(f"New best model saved with accuracy: {best_accuracy * 100:.2f}%")
 
 
 
-model.eval()
+best_model = NBAPointModel(input_size)
+best_model.load_state_dict(torch.load('best_points_model1.pt'))
+best_model.eval()
+
 with torch.no_grad():
-    test_predictions = model(X_test_tensor)
+    test_predictions = best_model(X_test_tensor)
     test_predictions = test_predictions.round()
     accuracy = (test_predictions.numpy() == y_test_tensor.numpy()).mean()
-    print(f"Test Accuracy: {accuracy * 100:.2f}%")
+    print(f"Test Accuracy of Best Model: {accuracy * 100:.2f}%")
