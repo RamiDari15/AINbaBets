@@ -170,7 +170,7 @@ y_test_tensor = torch.tensor(y_test, dtype=torch.float32).view(-1, 1)
 
 train_data = torch.utils.data.TensorDataset(X_train_tensor, y_train_tensor)
 train_loader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True)
-
+best_accuracy = 0
 for epoch in range(epochs):
     model.train()
     epoch_loss = 0
