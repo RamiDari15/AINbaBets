@@ -1,0 +1,177 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e3f2fd; 
+    color: #333;
+    padding-top: 60px; 
+  }
+  
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0288d1;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+    height: 50px; 
+  }
+  
+  .navbar button {
+    background: #e3f2fd;
+    border: 2px solid #0288d1;
+    color: #0288d1;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+  
+  .navbar button:hover {
+    background: #0288d1;
+    color: white;
+    border: black 2px solid;
+  }
+  
+
+  .parlay-page {
+    max-width: 800px;
+    margin: 120px auto 20px;
+    padding: 20px;
+    background: #f8f9fa; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .parlay-page h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #01579b;
+    margin-bottom: 20px;
+  }
+  
+  .parlay-page p {
+    text-align: center;
+    color: #555;
+    font-size: 16px;
+  }
+  
+
+  .parlay-list {
+    margin-top: 20px;
+  }
+  
+  .parlay-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #e3f2fd; 
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .parlay-item h3 {
+    font-size: 20px;
+    color: #01579b;
+    margin-bottom: 10px;
+  }
+  
+  .parlay-item p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .parlay-item ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  
+  .parlay-item ul li {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .parlay-item .percentage {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .parlay-item .percentage.success {
+    color: #2e7d32; 
+  }
+  
+  .parlay-item .percentage.warning {
+    color: #d32f2f;
+  }
+  
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .buttons button {
+    background: #0288d1; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .buttons button:hover {
+    background: #01579b; 
+  }
+  
+
+  .loading {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+  }
+  
+
+  .error-message {
+    text-align: center;
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 20px 0;
+  }
+  
+ 
+  @media (max-width: 768px) {
+    .parlay-page {
+      padding: 15px;
+    }
+  
+    .navbar {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .parlay-item {
+      padding: 10px;
+    }
+  
+    .buttons button {
+      font-size: 14px;
+      padding: 8px 15px;
+    }
+  }
+  

@@ -1,0 +1,121 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e3f2fd; 
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+
+  .create-account-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .create-account-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0288d1; 
+    margin-bottom: 20px;
+  }
+  
+
+  .create-account-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create-account-input {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .create-account-input:focus {
+    border-color: #0288d1;
+    box-shadow: 0px 0px 6px rgba(2, 136, 209, 0.4);
+    outline: none;
+  }
+  
+
+  .create-account-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #0288d1; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .create-account-button:hover {
+    background-color: #01579b; 
+  }
+  
+  .back-to-login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #6c757d; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .back-to-login-button:hover {
+    background-color: #5a6268; 
+  }
+  
+
+  .error-message {
+    color: #d32f2f; 
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .success-message {
+    color: #388e3c; 
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  @media (max-width: 600px) {
+    .create-account-container {
+      padding: 20px;
+    }
+  
+    .create-account-title {
+      font-size: 22px;
+    }
+  
+    .create-account-button,
+    .back-to-login-button,
+    .create-account-input {
+      font-size: 14px;
+    }
+  }
+  
