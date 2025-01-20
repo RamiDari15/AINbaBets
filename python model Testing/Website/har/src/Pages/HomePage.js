@@ -14,7 +14,7 @@ const CreateProfilePage = () => {
     e.preventDefault();
     const auth = getAuth();
 
-    try {
+    try { 
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userId = userCredential.user.uid;
 
